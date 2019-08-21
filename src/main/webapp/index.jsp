@@ -5,6 +5,5 @@
     <%
         response.sendRedirect("/signIn");
     %>
-<h1>你好</h1>
 </body>
 </html>

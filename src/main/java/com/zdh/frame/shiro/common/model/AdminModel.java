@@ -19,7 +19,12 @@ public class AdminModel<T> implements Serializable {
     /**
      * 管理员唯一标识ID
      */
-    private String id;
+    private Long id;
+
+    /**
+     * 管理员唯一标识 String类型
+     */
+    private String adminId;
 
     /**
      * 名称
@@ -65,7 +70,7 @@ public class AdminModel<T> implements Serializable {
         super();
     }
 
-    public AdminModel(String id, String realName, String userName, String password, String salt, Integer locked, String lastLoginIp, Integer loginCount) {
+    public AdminModel(Long id, String realName, String userName, String password, String salt, Integer locked, String lastLoginIp, Integer loginCount) {
 
         super();
         this.id = id;
@@ -78,12 +83,20 @@ public class AdminModel<T> implements Serializable {
         this.loginCount = loginCount;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(String adminId) {
+        this.adminId = adminId;
     }
 
     public String getRealName() {

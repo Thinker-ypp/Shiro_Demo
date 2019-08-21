@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 @Scope("prototype")
-@RequestMapping
 public class UserController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);

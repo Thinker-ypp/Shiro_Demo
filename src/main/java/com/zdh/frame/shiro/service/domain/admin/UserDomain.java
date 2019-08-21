@@ -22,7 +22,7 @@ public class UserDomain implements Serializable {
 
     /*管理员id*/
     @Id
-    private String id;
+    private Integer id;
 
     /*姓名*/
     private String realName;
@@ -64,16 +64,16 @@ public class UserDomain implements Serializable {
     private Date updateTime;
 
     /*创建人*/
-    private String creatorId;
+    private Long creatorId;
 
     /*最后修改人*/
-    private String editorId;
+    private Long editorId;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -181,19 +181,19 @@ public class UserDomain implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getCreatorId() {
+    public Long getCreatorId() {
         return creatorId;
     }
 
-    public void setCreatorId(String creatorId) {
+    public void setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
     }
 
-    public String getEditorId() {
+    public Long getEditorId() {
         return editorId;
     }
 
-    public void setEditorId(String editorId) {
+    public void setEditorId(Long editorId) {
         this.editorId = editorId;
     }
 }

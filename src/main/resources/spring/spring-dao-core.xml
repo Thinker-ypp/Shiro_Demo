@@ -20,30 +20,30 @@
     </bean>
     <!--数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-    <property name="driverClassName" value="${loan.jdbc.driverClassName}"/>
-        <property name="url" value="${loan.jdbc.url}"/>
-        <property name="username" value="${loan.jdbc.username}"/>
-        <property name="password" value="${loan.jdbc.password}"/>
+    <property name="driverClassName" value="${zdh.jdbc.driverClassName}"/>
+        <property name="url" value="${zdh.jdbc.url}"/>
+        <property name="username" value="${zdh.jdbc.username}"/>
+        <property name="password" value="${zdh.jdbc.password}"/>
         <!-- 初始化链接大小 -->
-        <property name="initialSize" value="${loan.pool.initialSize}"/>
+        <property name="initialSize" value="${zdh.pool.initialSize}"/>
         <!-- 最大连接数 -->
-        <property name="maxActive" value="${loan.pool.maxActive}"/>
+        <property name="maxActive" value="${zdh.pool.maxActive}"/>
         <!-- 连接池中最小空闲连接数 -->
-        <property name="minIdle" value="${loan.pool.minIdle}"/>
+        <property name="minIdle" value="${zdh.pool.minIdle}"/>
         <!-- 默认值是无限大，当连接池中连接已经用完了，等待建立一个新连接的最大毫秒数 ( 在抛异常之前 ) -->
-        <property name="maxWait" value="${loan.pool.maxWait}"/>
+        <property name="maxWait" value="${zdh.pool.maxWait}"/>
         <!-- 默认值是 true ，当从连接池取连接时，验证这个连接是否有效 -->
-        <property name="testOnBorrow" value="${loan.pool.testOnBorrow}"/>
+        <property name="testOnBorrow" value="${zdh.pool.testOnBorrow}"/>
         <!-- 指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.注意: 设置为true后如果要生效,validationQuery参数必须设置为非空字符串 -->
-        <property name="testWhileIdle" value="${loan.pool.testWhileIdle}"/>
+        <property name="testWhileIdle" value="${zdh.pool.testWhileIdle}"/>
         <!-- SQL查询,用来验证从连接池取出的连接,在将连接返回给调用者之前.如果指定,则查询必须是一个SQL SELECT并且必须返回至少一行记录 -->
-        <property name="validationQuery" value="${loan.pool.validationQuery}"/>
+        <property name="validationQuery" value="${zdh.pool.validationQuery}"/>
         <!-- 默认值是 flase, 当从把该连接放回到连接池的时，验证这个连接是否有效 -->
-        <property name="testOnReturn" value="${loan.pool.testOnReturn}"/>
+        <property name="testOnReturn" value="${zdh.pool.testOnReturn}"/>
         <!-- 默认值是 1000 * 60 * 30(30 分钟 ) ，连接池中连接可空闲的时间 -->
-        <property name="minEvictableIdleTimeMillis" value="${loan.pool.minEvictableIdleTimeMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${zdh.pool.minEvictableIdleTimeMillis}"/>
         <!-- 默认值是 -1 ，每隔一段多少毫秒跑一次回收空闲线程的线程(空闲链接回收器) -->
-        <property name="timeBetweenEvictionRunsMillis" value="${loan.pool.timeBetweenEvictionRunsMillis}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${zdh.pool.timeBetweenEvictionRunsMillis}"/>
         <property name="filters" value="config"/>
     </bean>
 

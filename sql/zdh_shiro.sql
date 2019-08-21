@@ -23,8 +23,9 @@ CREATE TABLE `module` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '模块名称',
   `description` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '菜单模块描述',
-  `lable` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '标签',
-  `status` tinyint(4) DEFAULT NULL COMMENT '状态 1:开启 0:关闭',
+  `label` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '标签',
+  `status_code` varchar(50) DEFAULT NULL COMMENT '状态 ENABLE:启用 DISABLE:禁用',
+  `status_name` varchar(50) DEFAULT NULL COMMENT '状态 ENABLE:启用 DISABLE:禁用',
   `sorting` tinyint(20) DEFAULT NULL COMMENT '排序字段',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
@@ -34,7 +35,7 @@ CREATE TABLE `module` (
 -- ----------------------------
 -- Records of module
 -- ----------------------------
-INSERT INTO `module` VALUES ('1', '系统设置', '系统设置', 'system', '1', '1', '2018-03-12 15:03:44', '2018-03-12 15:03:46');
+INSERT INTO `module` VALUES ('1', '系统设置', '系统设置', 'system', 'ENABLE','启用', '1', '2018-03-12 15:03:44', '2018-03-12 15:03:46');
 
 -- ----------------------------
 -- Table structure for permission
@@ -47,7 +48,7 @@ CREATE TABLE `permission` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '资源路径',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '资源父ID',
   `permission` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '权限字符串',
-  `available` tinyint(1) DEFAULT '0' COMMENT '是否可用 0:true 1:false',
+  `available` tinyint(1) DEFAULT '1' COMMENT '是否可用 0:不可用 1:可用',
   `module_id` bigint(20) DEFAULT NULL COMMENT '模块ID',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
@@ -58,12 +59,12 @@ CREATE TABLE `permission` (
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('1', '权限管理', 'click', '#', null, 'system:permissions:manager', '0', '1', '2018-03-16 13:09:57', '2018-03-16 13:09:54');
-INSERT INTO `permission` VALUES ('2', '权限列表', 'menu', '/permission/index', '1', 'system:permissions:index', '0', '1', '2018-03-19 14:12:53', '2018-03-19 14:12:57');
-INSERT INTO `permission` VALUES ('3', '增加权限', 'button', '/permission/add', '2', 'system:permissions:add', '0', '1', '2018-03-20 14:55:47', '2018-03-20 14:55:49');
-INSERT INTO `permission` VALUES ('4', '修改权限', 'button', '/permission/update', '2', 'system:permissions:update', '0', '1', '2018-03-20 15:46:45', '2018-03-20 15:46:48');
-INSERT INTO `permission` VALUES ('5', '分配权限管理', 'menu', '/permission/distribution', '1', 'system:permissions:distribution', '0', '1', '2018-03-23 11:25:41', '2018-03-23 11:25:41');
-INSERT INTO `permission` VALUES ('6', '分配权限', 'button', '/permission/disPermission', '5', 'system:permissions:disPermission', '0', '1', '2018-03-23 15:51:18', '2018-03-23 15:51:18');
+INSERT INTO `permission` VALUES ('1', '权限管理', 'click', '#', null, 'system:permissions:manager', '1', '1', '2018-03-16 13:09:57', '2018-03-16 13:09:54');
+INSERT INTO `permission` VALUES ('2', '权限列表', 'menu', '/permission/index', '1', 'system:permissions:index', '1', '1', '2018-03-19 14:12:53', '2018-03-19 14:12:57');
+INSERT INTO `permission` VALUES ('3', '增加权限', 'button', '/permission/add', '2', 'system:permissions:add', '1', '1', '2018-03-20 14:55:47', '2018-03-20 14:55:49');
+INSERT INTO `permission` VALUES ('4', '修改权限', 'button', '/permission/update', '2', 'system:permissions:update', '1', '1', '2018-03-20 15:46:45', '2018-03-20 15:46:48');
+INSERT INTO `permission` VALUES ('5', '分配权限管理', 'menu', '/permission/distribution', '1', 'system:permissions:distribution', '1', '1', '2018-03-23 11:25:41', '2018-03-23 11:25:41');
+INSERT INTO `permission` VALUES ('6', '分配权限', 'button', '/permission/disPermission', '5', 'system:permissions:disPermission', '1', '1', '2018-03-23 15:51:18', '2018-03-23 15:51:18');
 
 -- ----------------------------
 -- Table structure for permission_assign
@@ -145,8 +146,8 @@ CREATE TABLE `user` (
   `login_count` int(11) DEFAULT NULL COMMENT '登录次数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '最后修改信息时间',
-  `create_admin` bigint(20) DEFAULT NULL COMMENT '创建人',
-  `update_admin` bigint(20) DEFAULT NULL COMMENT '最后修改人',
+  `creator_Id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `editor_Id` bigint(20) DEFAULT NULL COMMENT '最后修改人',
   PRIMARY KEY (`id`),
   KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员信息表';
