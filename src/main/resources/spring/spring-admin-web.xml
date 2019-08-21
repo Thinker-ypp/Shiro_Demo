@@ -10,6 +10,7 @@
 	http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
 	<aop:aspectj-autoproxy />
 	<!-- 使用Annotation自动注册Bean，只扫描@Controller，否则事务会失效 -->
     <context:component-scan base-package="com.zdh.frame.shiro.web.controller" use-default-filters="false">
@@ -40,8 +41,8 @@
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <!-- 需排除拦截的地址 -->
-            <!--  <mvc:exclude-mapping path="/userController/login"/>  -->
-            <bean id="pathInterceptor" class="org.rj.frame.shiro.web.realm.PathInterceptor"></bean>
+<!--              <mvc:exclude-mapping path="/userController/login"/>-->
+            <bean id="pathInterceptor" class="com.zdh.frame.shiro.web.interceptor.PathInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
     
@@ -50,8 +51,7 @@
     
     <!-- 静态资源加载 -->
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31537000"/>
-    
-	
+
     <!-- 视图引擎配置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>
@@ -71,5 +71,4 @@
             <value>10485760</value>
         </property>
     </bean>
-
 </beans>

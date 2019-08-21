@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+  		http://www.springframework.org/schema/aop
+  		http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- shiro realm -->
+<!--    <bean id="customRealm" class="org.rj.frame.shiro.web.realm.CustomRealm">-->
+<!--        <property name="cachingEnabled" value="false" />-->
+<!--        <property name="authenticationCachingEnabled" value="false" />-->
+<!--    </bean>-->
+
+<!--    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+<!--        &lt;!&ndash; 装配 securityManager &ndash;&gt;-->
+<!--        <property name="securityManager" ref="securityManager"/>-->
+<!--        &lt;!&ndash; 具体配置需要拦截哪些 URL, 以及访问对应的 URL 时使用 Shiro 的什么 Filter 进行拦截.  &ndash;&gt;-->
+<!--        <property name="filterChainDefinitions">-->
+<!--            <value>-->
+<!--                /index.jsp=anon-->
+<!--                /logout = logout-->
+<!--            </value>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>-->
+
+
+<!--    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
+<!--        <property name="cacheManager" ref="cacheManager"/>-->
+<!--        <property name="realm" ref="customRealm"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>-->
+</beans>

@@ -62,7 +62,7 @@
         <property name="basePackage" value="com.zdh.frame.shiro.service.mapper"/>
         <property name="properties">
             <value>
-                mappers=com.rui.web.common.persistence.Mapper
+                mappers=com.zdh.frame.shiro.common.persistence.Mapper
             </value>
         </property>
         <property name="sqlSessionFactoryBeanName" value="loanSqlSessionFactory"/>
