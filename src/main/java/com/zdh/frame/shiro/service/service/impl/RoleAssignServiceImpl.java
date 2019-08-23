@@ -32,7 +32,7 @@ public class RoleAssignServiceImpl extends BaseServiceImpl<RoleAssignDomain> imp
 	 * @param userDomain
      */
     @Override
-    public Set<Long> getRoleId(UserDomain userDomain) {
+    public Set<Long> getRoleIds(UserDomain userDomain) {
         Set<Long> longSet = new HashSet<>();
         if (userDomain != null){
             List<RoleAssignDomain> list = super.getList(new RoleAssignQuery(userDomain.getId()));
