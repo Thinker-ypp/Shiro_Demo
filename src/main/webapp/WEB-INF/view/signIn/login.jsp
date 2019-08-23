@@ -27,7 +27,7 @@
         }
         input:focus {
             outline:none; /*外边框颜色*/
-            border: 1px solid #00FF00;
+            border: 1px solid #00CC33;
         }
     </style>
 </head>

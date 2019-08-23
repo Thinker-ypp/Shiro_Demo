@@ -1,6 +1,7 @@
 package com.zdh.frame.shiro.common.persistence;
 
 import com.zdh.frame.shiro.common.mybatis.CommonMapper;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -12,6 +13,7 @@ import com.zdh.frame.shiro.common.mybatis.CommonMapper;
  * @Version 1.0.0
  * @Date 2019.08.21 15:57
  */
+@Component
 public interface Mapper<T> extends CommonMapper<T> {
 
     /**

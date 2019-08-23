@@ -1,6 +1,10 @@
 package com.zdh.frame.shiro.service.mapper;
 
+import com.zdh.frame.shiro.common.persistence.Mapper;
+import com.zdh.frame.shiro.service.domain.admin.UserDomain;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 /**
  * <p></p>
@@ -11,6 +15,10 @@ import org.springframework.stereotype.Component;
  * @Date 2019.08.21 15:46
  */
 @Component
-public interface IUserMapper {
+public interface IUserMapper extends Mapper<UserDomain> {
+
+    UserDomain queryUserByName(String userName);
+
+    Set<String> queryRolesByName(String userName);
 
 }
