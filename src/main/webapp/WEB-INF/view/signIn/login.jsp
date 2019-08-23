@@ -25,6 +25,10 @@
         div {
             margin-top: 5px;
         }
+        input:focus {
+            outline:none; /*外边框颜色*/
+            border: 1px solid #00FF00;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +43,7 @@
                 <input type="text" id="userName" name="userName" style="width:260px;height:40px;" placeholder="用户名"><br/>
             </div>
             <div>
-                <input type="password" id="passwprd" name="password" style="width:260px;height:40px;" placeholder="密码"><br/>
+                <input type="password" id="password" name="password" style="width:260px;height:40px;" placeholder="密码"><br/>
             </div>
             <div>
                 <p class="msg"></p>
@@ -53,17 +57,20 @@
 <script>
     $(function () {
         $("#sub").click(function () {
-            $.post("${basePath}signIn", {
-                "userName": $("#userName").val(),
-                "password": $("#passwprd").val()
-            }, function (result) {
-                var obj = eval('(' + result + ')');
-                $(".msg").show();
-                $(".msg").text(obj.message);
-                if (obj.ok != null) {
-                    window.location.href = "${basePath}index";
-                }
-            });
+            var username = $("#userName").val();
+            var password = $("#password").val();
+            console.log(username + " <--> " + password);
+            <%--$.post("${basePath}signIn", {--%>
+            <%--    "userName": username,--%>
+            <%--    "password": password--%>
+            <%--}, function (result) {--%>
+            <%--    var obj = eval('(' + result + ')');--%>
+            <%--    $(".msg").show();--%>
+            <%--    $(".msg").text(obj.message);--%>
+            <%--    if (obj.ok != null) {--%>
+            <%--        window.location.href = "${basePath}index";--%>
+            <%--    }--%>
+            <%--});--%>
         });
     })
 </script>
