@@ -143,7 +143,7 @@ public class UserController extends BaseController {
      *
      * @author yupanpan
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public String logout() {
         Subject subject = SecurityUtils.getSubject();

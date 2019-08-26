@@ -29,7 +29,9 @@
 <body>
 <h2>模块</h2>
 欢迎您！<shiro:principal/>。
-<p><a onclick="logout()">退出</a></p>
+<p>
+    <button onclick="logout()">退出</button>
+</p>
 <c:forEach items="${zdh_default:modules()}" var="m">
     <li>
         <a onclick="getClicks('${basePath }module/click?moduleId=${m.id }')" data-toggle="sidenav"
@@ -80,12 +82,31 @@
 
     /* 退出 */
     function logout() {
-        $.get("${basePath}logout", null, function (data) {
-            var obj = eval(data);
+        //POST方式请求
+        $.post("${basePath}logout", null, function (result) {
+            var obj = eval('(' + result + ')');
             if (obj.ok != null) {
-                window.location.href = "${basePath}logout";
+                alert(obj.message);
+                window.location.href = "${basePath}signIn";
             }
-        }, 'json');
+        });
+
+        //GET方式请求
+        // $.ajax({
+        //     url: "/logout",                 <!--get方式请求,这里使用相对路径拼接url-->
+        //     type: "GET",
+        //     dataType: "json",               <!--服务器响应的数据类型为json串-->
+        //     data: null,                     <!--等价于URL后面拼接参数-->
+        //     success: function (result) {
+        //         console.log(">>> 退出操作成功 <<<");
+        //         alert(result.message)   	//请求成功时运行弹窗，取出json里面的value数据提示
+        //         window.location.href = "/signIn";
+        //     },
+        //     error: function (result) {
+        //         console.log(">>> 退出操作失败 <<<");
+        //         alert(result.message)       //打印错误信息
+        //     }
+        // });
     }
 </script>
 </body>
