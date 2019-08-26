@@ -2,7 +2,7 @@ package com.zdh.frame.shiro.query;
 
 import com.zdh.frame.shiro.common.persistence.criteria.QueryCriteria;
 import com.zdh.frame.shiro.common.query.Query;
-import com.zdh.frame.shiro.service.domain.admin.ModuleDomain;
+import com.zdh.frame.shiro.service.domain.admin.PermissionAssignDomain;
 import tk.mybatis.mapper.entity.Example;
 
 /**
@@ -23,9 +23,25 @@ public class PermissionAssignQuery extends Query {
         this.permissionId = permissionId;
     }
 
+    public Long getPermissionId() {
+        return permissionId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public void setPermissionId(Long permissionId) {
+        this.permissionId = permissionId;
+    }
+
     @Override
     public QueryCriteria toCriteria() {
-        QueryCriteria queryCriteria = new QueryCriteria(ModuleDomain.class);
+        QueryCriteria queryCriteria = new QueryCriteria(PermissionAssignDomain.class);
         Example.Criteria criteria = queryCriteria.createCriteria();
         if (valid(roleId)) {
             criteria.andEqualTo("roleId", roleId);
@@ -34,13 +50,5 @@ public class PermissionAssignQuery extends Query {
             criteria.andEqualTo("permissionId", permissionId);
         }
         return queryCriteria;
-    }
-
-    public Long getPermissionId() {
-        return permissionId;
-    }
-
-    public Long getRoleId() {
-        return roleId;
     }
 }

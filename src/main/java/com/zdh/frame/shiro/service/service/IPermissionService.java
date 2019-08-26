@@ -26,9 +26,10 @@ public interface IPermissionService extends IBaseService<PermissionDomain> {
     /**
      * 获取所有资源对象
      *
-     * @param longSet
+     * @param permissionIds
      * @author yupanpan
+     * @return
      */
-    Set<PermissionDomain> getPermissions(Set<Long> longSet);
+    Set<PermissionDomain> getPermissions(Set<Long> permissionIds);
 
 }

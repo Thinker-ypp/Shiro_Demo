@@ -23,8 +23,8 @@ public class RoleQuery extends Query {
     private Integer available;
 
     public RoleQuery(Long roleId,String name,Integer available){
-        this.name = name;
         this.roleId = roleId;
+        this.name = name;
         this.available = available;
     }
     @Override

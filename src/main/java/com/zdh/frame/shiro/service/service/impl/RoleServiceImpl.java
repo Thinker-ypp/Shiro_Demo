@@ -34,13 +34,14 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDomain> implements IRol
      */
     @Override
     public Set<RoleDomain> getRoles(Set<Long> roleIds) {
-        Set<RoleDomain> sets = new HashSet<>();
+        Set<RoleDomain> roleSet = new HashSet<>();
         for (Long roleId : roleIds) {
+            //获取角色
             RoleDomain roleDomain = super.getOne(new RoleQuery(roleId, null, RoleAvailableEnum.OPEN.getCode()));
             if (roleDomain != null){
-                sets.add(roleDomain);
+                roleSet.add(roleDomain);
             }
         }
-        return sets;
+        return roleSet;
     }
 }

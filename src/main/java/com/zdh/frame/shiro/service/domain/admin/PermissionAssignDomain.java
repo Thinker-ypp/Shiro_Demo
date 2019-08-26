@@ -20,13 +20,20 @@ public class PermissionAssignDomain {
     @Id
     private Long id;
 
-    // 资源id
-    private Long permissionId;
-
-    // 角色id
+    /**
+     * 角色id
+     */
     private Long roleId;
 
-    // 创建时间
+    /**
+     * 权限id
+     */
+    private Long permissionId;
+
+
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
     public Long getId() {
@@ -37,20 +44,20 @@ public class PermissionAssignDomain {
         this.id = id;
     }
 
-    public Long getPermissionId() {
-        return permissionId;
-    }
-
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
-    }
-
     public Long getRoleId() {
         return roleId;
     }
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public Long getPermissionId() {
+        return permissionId;
+    }
+
+    public void setPermissionId(Long permissionId) {
+        this.permissionId = permissionId;
     }
 
     public Date getCreateTime() {

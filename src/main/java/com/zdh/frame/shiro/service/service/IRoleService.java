@@ -16,7 +16,7 @@ import java.util.Set;
 public interface IRoleService extends IBaseService<RoleDomain> {
 
     /**
-     * 获取权限表详细信息
+     * 获取角色表详细信息
      *
      * @param roleIds
      * @author yupanpan

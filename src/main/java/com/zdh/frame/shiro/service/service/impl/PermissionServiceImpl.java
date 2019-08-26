@@ -29,7 +29,7 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionDomain> imp
     @Override
     public Set<PermissionDomain> getPermissionsById(Set<Long> longSet) {
         Set<PermissionDomain> sets = new HashSet<>();
-        for (Long item:longSet) {
+        for (Long item : longSet) {
             PermissionQuery permissionQuery = new PermissionQuery();
             permissionQuery.setId(item);
             permissionQuery.setAvailable(0);
@@ -42,16 +42,16 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionDomain> imp
     }
 
     @Override
-    public Set<PermissionDomain> getPermissions(Set<Long> longSet) {
-        Set<PermissionDomain> sets = new HashSet<>();
-        for (Long item:longSet) {
+    public Set<PermissionDomain> getPermissions(Set<Long> permissionIds) {
+        Set<PermissionDomain> permissions = new HashSet<>();
+        for (Long permissionId : permissionIds) {
             PermissionQuery permissionQuery = new PermissionQuery();
-            permissionQuery.setId(item);
+            permissionQuery.setId(permissionId);
             PermissionDomain domain = super.getOne(permissionQuery);
-            if (domain != null){
-                sets.add(domain);
+            if (domain != null) {
+                permissions.add(domain);
             }
         }
-        return sets;
+        return permissions;
     }
 }

@@ -6,6 +6,8 @@ import com.zdh.frame.shiro.service.domain.admin.RoleAssignDomain;
 import com.zdh.frame.shiro.service.domain.admin.UserDomain;
 import com.zdh.frame.shiro.service.mapper.IRoleAssignMapper;
 import com.zdh.frame.shiro.service.service.IRoleAssignService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,24 +26,30 @@ import java.util.Set;
 @Service
 public class RoleAssignServiceImpl extends BaseServiceImpl<RoleAssignDomain> implements IRoleAssignService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RoleAssignServiceImpl.class);
+
     @Autowired
     private IRoleAssignMapper roleAssignMapper;
+
     /**
      * 通过用户获取角色对象信息
+     *
+     * @param userDomain
      * @author yupanpan
-	 * @param userDomain
      */
     @Override
     public Set<Long> getRoleIds(UserDomain userDomain) {
-        Set<Long> longSet = new HashSet<>();
-        if (userDomain != null){
-            List<RoleAssignDomain> list = super.getList(new RoleAssignQuery(userDomain.getId()));
-            if (null != list){
+        Set<Long> roleIdSet = new HashSet<>();
+        if (userDomain != null) {
+            //查询用户-角色关联信息
+            List<RoleAssignDomain> list = super.getList(new RoleAssignQuery(userDomain.getId(), null));
+            if (null != list) {
                 for (RoleAssignDomain roleAssignDomain : list) {
-                    longSet.add(roleAssignDomain.getId());
+                    //保存角色Id
+                    roleIdSet.add(roleAssignDomain.getRoleId());
                 }
             }
         }
-        return longSet;
+        return roleIdSet;
     }
 }

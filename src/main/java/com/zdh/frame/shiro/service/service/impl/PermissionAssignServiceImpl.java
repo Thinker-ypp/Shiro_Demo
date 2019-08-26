@@ -30,15 +30,15 @@ public class PermissionAssignServiceImpl extends BaseServiceImpl<PermissionAssig
 
     @Override
     public Set<Long> getPermissionAssign(Set<Long> roleIds) {
-        Set<Long> sets = new HashSet<>();
+        Set<Long> permissionIdSet = new HashSet<>();
         for (Long roleId: roleIds) {
             List<PermissionAssignDomain> domainList = super.getList(new PermissionAssignQuery(roleId,null));
             if(domainList != null) {
                 for (PermissionAssignDomain permissionAssignDomain : domainList) {
-                    sets.add(permissionAssignDomain.getPermissionId());
+                    permissionIdSet.add(permissionAssignDomain.getPermissionId());
                 }
             }
         }
-        return sets;
+        return permissionIdSet;
     }
 }

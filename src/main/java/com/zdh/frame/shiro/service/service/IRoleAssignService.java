@@ -21,6 +21,7 @@ public interface IRoleAssignService extends IBaseService<RoleAssignDomain> {
      *
      * @param userDomain
      * @author yupanpan
+     * @return
      */
     Set<Long> getRoleIds(UserDomain userDomain);
 }

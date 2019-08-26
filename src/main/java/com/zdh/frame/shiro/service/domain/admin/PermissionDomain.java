@@ -3,10 +3,11 @@ package com.zdh.frame.shiro.service.domain.admin;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * <p>
- *     权限表对象
+ * 权限表对象
  * </p>
  *
  * @Author Yupanpan
@@ -24,41 +25,61 @@ public class PermissionDomain {
     private Long id;
 
     /**
-     *权限名称
+     * 权限名称
      */
     private String name;
     /**
-     *权限类型
+     * 权限类型
      */
     private String type;
     /**
-     *资源路径
+     * 资源路径
      */
     private String url;
     /**
-     *资源父ID
+     * 资源父ID
      */
     private Long parentId;
     /**
-     *权限字符串
+     * 权限字符串
      */
     private String permission;
     /**
-     *是否开启 0:关闭 1:开启
+     * 是否开启 0:关闭 1:开启
      */
     private Integer available;
     /**
-     *模块ID
+     * 模块ID
      */
     private Long moduleId;
     /**
-     *创建时间
+     * 创建时间
      */
     private Date createTime;
     /**
-     *修改时间
+     * 修改时间
      */
     private Date updateTime;
+
+    /**
+     * 重写equals和hashCode方法
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PermissionDomain that = (PermissionDomain) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public Long getId() {
         return id;

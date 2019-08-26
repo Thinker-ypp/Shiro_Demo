@@ -20,6 +20,7 @@ public interface IPermissionAssignService extends IBaseService<PermissionAssignD
      *
      * @param roleIds
      * @author yupanpan
+     * @return
      */
     Set<Long> getPermissionAssign(Set<Long> roleIds);
 }

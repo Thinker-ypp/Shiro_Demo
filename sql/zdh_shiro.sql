@@ -26,7 +26,7 @@ CREATE TABLE `module` (
   `label` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '标签',
   `status_code` varchar(50) DEFAULT NULL COMMENT '状态 ENABLE:启用 DISABLE:禁用',
   `status_name` varchar(50) DEFAULT NULL COMMENT '状态 ENABLE:启用 DISABLE:禁用',
-  `sorting` tinyint(20) DEFAULT NULL COMMENT '排序字段',
+  `sorting` bigint(20) DEFAULT NULL COMMENT '排序字段',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -48,7 +48,7 @@ CREATE TABLE `permission` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '资源路径',
   `parent_id` bigint(20) DEFAULT NULL COMMENT '资源父ID',
   `permission` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '权限字符串',
-  `available` tinyint(1) DEFAULT '1' COMMENT '是否可用 0:不可用 1:可用',
+  `available` tinyint(1) DEFAULT '1' COMMENT '是否开启 0:关闭 1:开启',
   `module_id` bigint(20) DEFAULT NULL COMMENT '模块ID',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
@@ -71,9 +71,9 @@ INSERT INTO `permission` VALUES ('6', '分配权限', 'button', '/permission/dis
 -- ----------------------------
 DROP TABLE IF EXISTS `permission_assign`;
 CREATE TABLE `permission_assign` (
-  `id` tinyint(36) NOT NULL AUTO_INCREMENT COMMENT '主键 权限分配id',
-  `permission_id` tinyint(36) DEFAULT NULL,
-  `role_id` tinyint(36) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键 权限分配id',
+  `permission_id` bigint(20) DEFAULT NULL,
+  `role_id` bigint(20) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统权限 角色 关联授权表';
@@ -96,7 +96,7 @@ CREATE TABLE `role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色名称',
   `description` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '角色描述',
-  `available` int(1) DEFAULT '0' COMMENT '是否可用 0:true 1:false',
+  `available` int(5) DEFAULT '0' COMMENT '是否可用 0:不可用 1:可用',
   `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -105,7 +105,7 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '超级管理员', '权限', '0', '2018-01-10 17:10:23', '2018-01-10 17:10:23');
+INSERT INTO `role` VALUES ('1', '超级管理员', '权限', '1', '2018-01-10 17:10:23', '2018-01-10 17:10:23');
 
 -- ----------------------------
 -- Table structure for role_assign
@@ -139,7 +139,7 @@ CREATE TABLE `user` (
   `salt` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '盐',
   `phone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '手机',
   `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '邮箱',
-  `locked` tinyint(4) DEFAULT '0' COMMENT '是否可用 0:true 1:false',
+  `locked` tinyint(4) DEFAULT '1' COMMENT '是否可用 0:不可用 1:可用',
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '描述',
   `last_login_time` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
   `last_login_ip` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '最后登录ip',
@@ -155,4 +155,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '超级管理员', 'admin', '123456', null, '15603998400', '15603998400@163.com', '0', null, '2018-01-10 16:58:23', null, null, '2018-01-10 16:58:23', '2018-01-10 16:58:23', null, null);
+INSERT INTO `user` VALUES ('1', '超级管理员', 'admin', '123456', null, '15603998400', '15603998400@163.com', '1', null, '2018-01-10 16:58:23', null, null, '2018-01-10 16:58:23', '2018-01-10 16:58:23', null, null);

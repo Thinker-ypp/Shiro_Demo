@@ -40,7 +40,7 @@ import java.util.Set;
 
 /**
  * <p>
- * 自定义域realm
+ *      自定义域realm
  * </p>
  *
  * @Author Yupanpan
@@ -103,9 +103,10 @@ public class CustomRealm extends AuthorizingRealm {
         //角色处理
         Set<String> roleSet = new HashSet<String>();
         for (RoleDomain roleDomain : roleDomains) {
+            //存放角色名称
             roleSet.add(roleDomain.getName());
         }
-        // 将角色存入 adminContext中
+        // 将角色名称存入 adminContext中
         adminContext.setRoleSet(roleSet);//角色
 
         //权限对象【根据角色ID获取所有权限】
@@ -113,6 +114,7 @@ public class CustomRealm extends AuthorizingRealm {
         Set<PermissionDomain> permissionDomains = permissionService.getPermissions(permissionIds);
         Set<String> permissions = new HashSet<>();
         for (PermissionDomain permissionDomain : permissionDomains) {
+            //保存权限字符串
             permissions.add(permissionDomain.getPermission());
         }
         // 将权限字符串存入 adminContext中
@@ -186,7 +188,7 @@ public class CustomRealm extends AuthorizingRealm {
         }
         List<ModuleDomain> lists = new ArrayList<>();
         ModuleDomain domain = moduleDomains.get(0);
-        lists.add(moduleDomains.get(0));
+        lists.add(domain);
         for (ModuleDomain item : moduleDomains) {
             if (!item.getId().equals(domain.getId())) {
                 lists.add(item);

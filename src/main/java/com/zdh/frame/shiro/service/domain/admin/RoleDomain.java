@@ -3,10 +3,11 @@ package com.zdh.frame.shiro.service.domain.admin;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * <p>
- *     角色表
+ * 角色表
  * </p>
  *
  * @Author Yupanpan
@@ -22,25 +23,44 @@ public class RoleDomain {
     @Id
     private Long id;
     /**
-     *角色名称
+     * 角色名称
      */
     private String name;
     /**
-     *角色描述
+     * 角色描述
      */
     private String description;
     /**
-     *是否可用 0:不可用 1:可用
+     * 是否可用 0:不可用 1:可用
      */
     private Integer available;
     /**
-     *创建时间
+     * 创建时间
      */
     private Date createTime;
     /**
-     *修改时间
+     * 修改时间
      */
     private Date updateTime;
+
+    /**
+     * 重写equals和hashCode方法
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        RoleDomain that = (RoleDomain) o;
+        return Objects.equals(id, that.id);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     public Long getId() {
         return id;
