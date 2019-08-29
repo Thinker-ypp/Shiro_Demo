@@ -76,7 +76,7 @@
     function setFrame(thi) {
         var url = $(thi).attr("data-url");
         var path = "${basePath }".substr(0, "${basePath }".length - 1) + url;
-        $("#iframe iframe").attr("src", "${baesPath}" + url);
+        $("#iframe iframe").attr("src", "${basePath}" + url);
         $("#iframe iframe").load();
     }
 

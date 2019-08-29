@@ -54,6 +54,32 @@ public class ModuleController extends BaseController {
         query.setAvailable(BeUsedEnum.BE_USED.getCode());
         //根据条件查询权限
         List<PermissionDomain> permissionList = permissionService.getList(query);
+        return getPermissionInfo(permissionList);
+    }
+
+    /**
+     * 获取所有二级菜单
+     *
+     * @param parentId
+     * @return
+     */
+    @RequestMapping(value = "/menu")
+    @ResponseBody
+    public String getMenus(Long parentId) {
+        PermissionQuery query = new PermissionQuery();
+        query.setType(PermissionTypeEnum.MENU.getType());
+        query.setParentId(parentId);
+        List<PermissionDomain> list = permissionService.getList(query);
+        return getPermissionInfo(list);
+    }
+
+    /**
+     * 抽取通用方法
+     *
+     * @param permissionList
+     * @return
+     */
+    private String getPermissionInfo(List<PermissionDomain> permissionList) {
         Set<String> permissionSet = this.getPermissions();
         List<PermissionDomain> permissionDomains = new ArrayList<>();
         if (permissionList != null && permissionList.size() > 0) {
