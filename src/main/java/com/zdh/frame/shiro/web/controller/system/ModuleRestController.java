@@ -32,9 +32,9 @@ import java.util.Set;
 @Controller
 @Scope("prototype")
 @RequestMapping(value = "/module")
-public class ModuleController extends BaseController {
+public class ModuleRestController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleRestController.class);
 
     @Autowired
     private IPermissionService permissionService;
@@ -54,7 +54,7 @@ public class ModuleController extends BaseController {
         query.setAvailable(BeUsedEnum.BE_USED.getCode());
         //根据条件查询权限
         List<PermissionDomain> permissionList = permissionService.getList(query);
-        return getPermissionInfo(permissionList);
+        return getMenuList(permissionList);
     }
 
     /**
@@ -70,16 +70,16 @@ public class ModuleController extends BaseController {
         query.setType(PermissionTypeEnum.MENU.getType());
         query.setParentId(parentId);
         List<PermissionDomain> list = permissionService.getList(query);
-        return getPermissionInfo(list);
+        return getMenuList(list);
     }
 
     /**
-     * 抽取通用方法
+     * 抽取通用方法【获取菜单栏】
      *
      * @param permissionList
      * @return
      */
-    private String getPermissionInfo(List<PermissionDomain> permissionList) {
+    private String getMenuList(List<PermissionDomain> permissionList) {
         Set<String> permissionSet = this.getPermissions();
         List<PermissionDomain> permissionDomains = new ArrayList<>();
         if (permissionList != null && permissionList.size() > 0) {
