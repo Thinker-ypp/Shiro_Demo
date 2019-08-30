@@ -24,8 +24,8 @@
     权限名称：<input type="text" name="name" id="name"/>
 </p>
 <p>
-    状态：<input type="radio" name="available" id="available" value="0" checked="checked">可用
-    <input type="radio" name="available" value="1">不可用
+    状态：<input type="radio" name="available" id="available" value="1" checked="checked">可用
+    <input type="radio" name="available" value="0">不可用
 </p>
 <p>
     资源路径：<input type="text" name="url" id="url"/>
@@ -62,7 +62,7 @@
     $(function () {
         $("#type").change(function () {
             if ($(this).val() != 'click') {
-                $.post("${basePath}permission/getParentType", {"lable": $(this).val()}, function (data) {
+                $.post("${basePath}permission/getParentType", {"label": $(this).val()}, function (data) {
                     $("#parentId").html("");
                     var obj = eval(data);
                     var optionLists = $("#parentId").html();

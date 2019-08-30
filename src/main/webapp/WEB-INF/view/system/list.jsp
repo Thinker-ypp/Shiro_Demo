@@ -33,7 +33,6 @@
         .childWin {
             display: none;
             position: absolute;
-            /*left: 20%;*/
             top: 25%;
             margin-left: 35%;
             width: 400px;
@@ -94,7 +93,7 @@
             var obj = eval(data);
             var listText = $(".tbody").html();
             for (var i = 0; i < obj.length; i++) {
-                listText = listText + "<tr class='premarykey'>";
+                listText = listText + "<tr  class='primarykey'>";
                 listText = listText + "<td>" + obj[i].id + "</td>";
                 listText = listText + "<td>" + obj[i].name + "</td>";
                 listText = listText + "<td>" + obj[i].type + "</td>";
@@ -127,6 +126,7 @@
 
     /* 修改权限 */
     function update() {
+        console.log("编辑权限Id ：" + primaryKey);
         if (primaryKey != '' || primaryKey != null) {
             $(".childWin").show();
             $(".childWin iframe").attr("src", "${basePath}permission/update?id=" + primaryKey);
@@ -134,12 +134,14 @@
         } else {
             alert("请选择编号！");
         }
-
     }
 
     //选中某一行数据
-    function setPrimaryKey(thi) {
-        primaryKey = $(thi).parent().next().html();
+    function setPrimaryKey(obj) {
+       var x = $(obj).parent().parent().find("td");
+       console.log(x);
+       primaryKey = x.eq(0).text();
+       console.log(primaryKey);
     }
 </script>
 </body>

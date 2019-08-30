@@ -1,6 +1,7 @@
 package com.zdh.frame.shiro.web.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zdh.frame.shiro.common.enums.PermissionAvailableTypeEnum;
 import com.zdh.frame.shiro.common.enums.PermissionTypeEnum;
 import com.zdh.frame.shiro.common.model.PermissionModel;
 import com.zdh.frame.shiro.query.PermissionQuery;
@@ -137,7 +138,7 @@ public class PermissionRestController extends BaseController {
                 PermissionAssignDomain permissionAssignDomain = new PermissionAssignDomain();
                 permissionAssignDomain.setCreateTime(new Date());
                 permissionAssignDomain.setPermissionId(domain.getId());
-                permissionAssignDomain.setRoleId(1L);
+                permissionAssignDomain.setRoleId(1L);//超级管理员
                 permissionAssignService.create(permissionAssignDomain);
             }
             return successObjectStr("添加成功!");
@@ -145,5 +146,54 @@ public class PermissionRestController extends BaseController {
             LOG.error("添加权限异常：---> {}", e.getMessage());
             return errorObjectStr("添加失败!");
         }
+    }
+
+    /**
+     * 获取当前所选权限类型的所有父权限类型 button - all menu
+     *
+     * @param label
+     * @return
+     */
+    @RequestMapping(value = "/getParentType", method = RequestMethod.POST)
+    @ResponseBody
+    public String getParentType(String label) {
+        PermissionQuery query = new PermissionQuery();
+        query.setAvailable(PermissionAvailableTypeEnum.ON.getCode());
+        if (PermissionTypeEnum.BUTTON.getType().equals(label)) {
+            query.setType(PermissionTypeEnum.MENU.getType());
+        } else if (PermissionTypeEnum.MENU.getType().equals(label)) {
+            query.setType(PermissionTypeEnum.CLICK.getType());
+        }
+        List<PermissionDomain> list = permissionService.getList(query);
+        return JSONObject.toJSONString(list);
+    }
+
+    /**
+     * 编辑权限
+     *
+     * @param query
+     * @return
+     */
+    @ShiroPermissions(name = "编辑权限", type = PermissionTypeEnum.BUTTON, moduleLabel = "system", parentPermissions = "system:permissions:index")
+    @RequiresPermissions("system:permissions:update")
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public ModelAndView updatePermission(PermissionQuery query) {
+        ModelAndView view = new ModelAndView();
+        Long id = query.getId();
+        PermissionDomain permissionDomain = permissionService.get(id);
+        view.setViewName("system/update");
+        view.addObject("domain", permissionDomain);
+        return view;
+    }
+
+    @ShiroPermissions(name = "编辑权限", type = PermissionTypeEnum.BUTTON, moduleLabel = "system", parentPermissions = "system:permissions:index")
+    @RequiresPermissions("system:permissions:update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public String updatePermission(Long id) {
+        LOG.info("所编辑权限的Id ：--> {}", id);
+
+
+        return null;
     }
 }
