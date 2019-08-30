@@ -33,13 +33,14 @@
         .childWin {
             display: none;
             position: absolute;
-            left: 20%;
-            top: 20%;
-            width: 500px;
-            height: 300px;
+            /*left: 20%;*/
+            top: 25%;
+            margin-left: 35%;
+            width: 400px;
+            height: 350px;
             z-index: 2;
             background: #ffffff;
-            border: 1px solid #d8d62b;
+            border: 3px solid #d8d62b;
         }
 
         .childWin iframe {
@@ -111,8 +112,8 @@
     /* 设置功能按钮 */
     function setToolBar() {
         var toolText = $(".toolBar").html();
-        toolText = toolText + '<shiro:hasPermission name="system:permissions:add"><input type="button" onclick="add()" class="btn" value="新增权限"/></shiro:hasPermission>';
-        toolText = toolText + '<shiro:hasPermission name="system:permissions:update"><input type="button" onclick="update()" class="btn" value="修改权限"/></shiro:hasPermission>';
+        toolText = toolText + '<shiro:hasPermission name="system:permissions:add"><input type="button" onclick="add()" class="btn" value="新增权限"/>&nbsp;</shiro:hasPermission>';
+        toolText = toolText + '<shiro:hasPermission name="system:permissions:update"><input type="button" onclick="update()" class="btn" value="修改权限"/>&nbsp;</shiro:hasPermission>';
         toolText = toolText + '<shiro:hasPermission name="system:permissions:delete"><input type="button" class="btn" value="删除权限"/></shiro:hasPermission>';
         $(".toolBar").html(toolText);
     }
@@ -136,6 +137,7 @@
 
     }
 
+    //选中某一行数据
     function setPrimaryKey(thi) {
         primaryKey = $(thi).parent().next().html();
     }

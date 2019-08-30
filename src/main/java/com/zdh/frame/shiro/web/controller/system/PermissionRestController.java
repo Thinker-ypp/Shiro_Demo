@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zdh.frame.shiro.common.enums.PermissionTypeEnum;
 import com.zdh.frame.shiro.common.model.PermissionModel;
 import com.zdh.frame.shiro.query.PermissionQuery;
+import com.zdh.frame.shiro.service.domain.admin.PermissionAssignDomain;
 import com.zdh.frame.shiro.service.domain.admin.PermissionDomain;
 import com.zdh.frame.shiro.service.service.IPermissionAssignService;
 import com.zdh.frame.shiro.service.service.IPermissionService;
@@ -15,6 +16,8 @@ import com.zdh.frame.shiro.web.utils.DateTimeUtils;
 import com.zdh.frame.shiro.web.utils.ShiroPermissions;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,6 +47,8 @@ import java.util.stream.Collectors;
 @RequiresPermissions("system:permissions:manager")
 @RequestMapping(value = "/permission")
 public class PermissionRestController extends BaseController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PermissionRestController.class);
 
     @Autowired
     private IUserService userService;
@@ -74,7 +80,12 @@ public class PermissionRestController extends BaseController {
         return view;
     }
 
-
+    /**
+     * 权限列表【获取数据】
+     *
+     * @param permissionQuery
+     * @return
+     */
     @RequiresPermissions(value = "system:permissions:index")
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @ResponseBody
@@ -90,5 +101,49 @@ public class PermissionRestController extends BaseController {
             return model;
         }).collect(Collectors.toList());
         return JSONObject.toJSONString(collect);
+    }
+
+    /**
+     * 新增权限
+     */
+    @ShiroPermissions(name = "新增权限", type = PermissionTypeEnum.BUTTON, moduleLabel = "system", parentPermissions = "system:permissions:index")
+    @RequiresPermissions("system:permissions:add")
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addPermission() {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("system/add");
+        return view;
+    }
+
+    @ShiroPermissions(name = "新增权限", type = PermissionTypeEnum.BUTTON, moduleLabel = "system", parentPermissions = "system:permissions:index")
+    @RequiresPermissions("system:permissions:add")
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String addPermission(PermissionDomain domain) {
+        try {
+            PermissionQuery query = new PermissionQuery();
+            query.setName(domain.getName());
+            query.setType(domain.getType());
+            query.setUrl(domain.getUrl());
+            PermissionDomain permissionDomain = permissionService.getFirst(query);
+            if (permissionDomain != null) {
+                return errorObjectStr("已存在该资源路径！");
+            }
+            domain.setUpdateTime(new Date());
+            domain.setCreateTime(new Date());
+            permissionService.create(domain);
+            // 系统设置默认给管理员添加权限
+            if (domain.getModuleId() == 1) {
+                PermissionAssignDomain permissionAssignDomain = new PermissionAssignDomain();
+                permissionAssignDomain.setCreateTime(new Date());
+                permissionAssignDomain.setPermissionId(domain.getId());
+                permissionAssignDomain.setRoleId(1L);
+                permissionAssignService.create(permissionAssignDomain);
+            }
+            return successObjectStr("添加成功!");
+        } catch (Exception e) {
+            LOG.error("添加权限异常：---> {}", e.getMessage());
+            return errorObjectStr("添加失败!");
+        }
     }
 }
