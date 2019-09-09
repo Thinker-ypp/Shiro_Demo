@@ -73,10 +73,12 @@ public class UserController extends BaseController {
         String loginInfo = loginUser(userModel);
         if (!SUCCESS.equals(loginInfo)){
             //登录失败
+            LOGGER.error("登录失败 ------> 用户名：{},密码：{}",userModel.getUserName(),userModel.getPassword());
             return errorObjectStr("用户名或密码错误！");
         }else {
             //登录成功
             session.setAttribute("status",200);
+            LOGGER.info("登录成功 ------> 用户名：{},密码：{}",userModel.getUserName(),userModel.getPassword());
             return successObjectStr("登录成功！");
         }
     }

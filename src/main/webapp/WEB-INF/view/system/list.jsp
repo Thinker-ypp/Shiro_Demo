@@ -75,7 +75,7 @@
 </div>
 <script src="${basePath}/static/jquery-2.1.4.js"></script>
 <script>
-    var primaryKey;
+    var primaryKey = "";
     /* 初始化加载数据 */
     $(function () {
         getResult("");
@@ -127,12 +127,12 @@
     /* 修改权限 */
     function update() {
         console.log("编辑权限Id ：" + primaryKey);
-        if (primaryKey != '' || primaryKey != null) {
+        if (primaryKey != '' && primaryKey != null) {
             $(".childWin").show();
             $(".childWin iframe").attr("src", "${basePath}permission/update?id=" + primaryKey);
             $(".childWin iframe").load();
         } else {
-            alert("请选择编号！");
+            alert("请选择要编辑的数据！");
         }
     }
 

@@ -190,10 +190,17 @@ public class PermissionRestController extends BaseController {
     @RequiresPermissions("system:permissions:update")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public String updatePermission(Long id) {
-        LOG.info("所编辑权限的Id ：--> {}", id);
-
-
-        return null;
+    public String updatePermission(PermissionDomain permissionDomain) {
+        LOG.info("所编辑权限的Id ：--> {}", permissionDomain.getId());
+        PermissionDomain domain = permissionService.get(permissionDomain.getId());
+        if (domain == null){
+            return errorObjectStr("该数据不存在！");
+        }
+        try {
+            permissionService.update(permissionDomain);
+        } catch (Exception e) {
+            return errorObjectStr("更新失败：" + e.getMessage());
+        }
+        return successObjectStr("更新成功！");
     }
 }

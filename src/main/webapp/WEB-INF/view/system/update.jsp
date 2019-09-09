@@ -40,7 +40,7 @@
         <select name="moduleId">
             <option name="-1">请选择模块id</option>
             <c:forEach items="${zdh_default:modules()}" var="m">
-                <option value="${m.id}">${m.name}</option>
+                <option value="${m.id}" <c:if test="${domain.moduleId == m.id}"> selected = "selected"</c:if>>${m.name}</option>
             </c:forEach>
         </select>
     <p>
@@ -49,7 +49,7 @@
         <select name="type" id="type">
             <option value="-1">请选择权限类型</option>
             <c:forEach items="${zdh_default:permissionTypes()}" var="type">
-                <option value="${type}">${type}</option>
+                <option value="${type}" <c:if test="${domain.type == type}"> selected = "selected"</c:if>>${type}</option>
             </c:forEach>
         </select>
     <p>
