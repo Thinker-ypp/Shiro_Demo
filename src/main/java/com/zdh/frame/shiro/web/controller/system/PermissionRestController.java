@@ -1,12 +1,16 @@
 package com.zdh.frame.shiro.web.controller.system;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zdh.frame.shiro.common.enums.BeUsedEnum;
 import com.zdh.frame.shiro.common.enums.PermissionAvailableTypeEnum;
 import com.zdh.frame.shiro.common.enums.PermissionTypeEnum;
 import com.zdh.frame.shiro.common.model.PermissionModel;
+import com.zdh.frame.shiro.common.model.UserModel;
 import com.zdh.frame.shiro.query.PermissionQuery;
+import com.zdh.frame.shiro.query.UserQuery;
 import com.zdh.frame.shiro.service.domain.admin.PermissionAssignDomain;
 import com.zdh.frame.shiro.service.domain.admin.PermissionDomain;
+import com.zdh.frame.shiro.service.domain.admin.UserDomain;
 import com.zdh.frame.shiro.service.service.IPermissionAssignService;
 import com.zdh.frame.shiro.service.service.IPermissionService;
 import com.zdh.frame.shiro.service.service.IRoleAssignService;
@@ -72,7 +76,7 @@ public class PermissionRestController extends BaseController {
      *
      * @return
      */
-    @ShiroPermissions(name = "权限列表", type = PermissionTypeEnum.MENU, moduleLabel = "system")
+    @ShiroPermissions(name = "权限列表", type = PermissionTypeEnum.MENU, moduleLabel = "system", parentPermissions = "system:permissions:system")
     @RequiresPermissions("system:permissions:index")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView permissionList() {
@@ -87,6 +91,7 @@ public class PermissionRestController extends BaseController {
      * @param permissionQuery
      * @return
      */
+    @ShiroPermissions(name = "权限列表", type = PermissionTypeEnum.MENU, moduleLabel = "system", parentPermissions = "system:permissions:system")
     @RequiresPermissions(value = "system:permissions:index")
     @RequestMapping(value = "/index", method = RequestMethod.POST)
     @ResponseBody
@@ -193,7 +198,7 @@ public class PermissionRestController extends BaseController {
     public String updatePermission(PermissionDomain permissionDomain) {
         LOG.info("所编辑权限的Id ：--> {}", permissionDomain.getId());
         PermissionDomain domain = permissionService.get(permissionDomain.getId());
-        if (domain == null){
+        if (domain == null) {
             return errorObjectStr("该数据不存在！");
         }
         try {
@@ -202,5 +207,39 @@ public class PermissionRestController extends BaseController {
             return errorObjectStr("更新失败：" + e.getMessage());
         }
         return successObjectStr("更新成功！");
+    }
+
+    /**
+     * 分配权限管理
+     *
+     * @return
+     */
+    @ShiroPermissions(name = "分配权限管理", type = PermissionTypeEnum.MENU, moduleLabel = "system", parentPermissions = "system:permissions:system")
+    @RequestMapping(value = "/distribution", method = RequestMethod.GET)
+    @RequiresPermissions(value = "system:permissions:distribution")
+    public ModelAndView permissions() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("system/distribution");
+        return model;
+    }
+
+    @ShiroPermissions(name = "分配权限管理", type = PermissionTypeEnum.MENU, moduleLabel = "system", parentPermissions = "system:permissions:system")
+    @RequestMapping(value = "/distribution", method = RequestMethod.POST)
+    @RequiresPermissions(value = "system:permissions:distribution")
+    @ResponseBody
+    public String permissions(UserQuery query) {
+        List<UserDomain> domains = userService.getList(query);
+        List<UserModel> userList = domains.stream().map(x -> {
+            UserModel user = new UserModel();
+            user.setId(x.getId());
+            user.setRealName(x.getRealName());
+            user.setUserName(x.getUserName());
+            user.setPhone(x.getPhone());
+            user.setLockedName(BeUsedEnum.valueOfCode(x.getLocked()));
+            user.setCreateTime(DateTimeUtils.dateToYyyyMMDD(x.getCreateTime()));
+            user.setLastLoginTime(DateTimeUtils.dateToYyyyMMDD(x.getLastLoginTime()));
+            return user;
+        }).collect(Collectors.toList());
+        return JSONObject.toJSONString(userList);
     }
 }
